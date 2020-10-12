@@ -1,52 +1,52 @@
 package com.problems.sequences;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.Scanner;
 
 public class PowerDigitSum
 {
+    
     private static final Scanner scanner = new Scanner(System.in);
-    private static int[][] powers = new int[10001][5000];
-    private static int[] sums = new int[10001];
+    private static int p = 30000;
+    private static int pd = p/3;
+    private static short[][] powers = new short[p+1][pd];
+    private static int[] sums = new int[p+1];
     
     public static void main(String []argh){
-        /*int t = scanner.nextInt();
-        for(int a0 = 0; a0 < t; a0++){
-            int n = scanner.nextInt();
-        }*/
+        Date start =new Date();
         fillPowers();
-        fillSums();
+        Date end = new Date();
         
-        for(int i=0;i<100;i++) {
-           /* for(int j=0;j<100;j++) {
-                System.out.print(powers[i][j]);
-            }*/
-            System.out.println(sums[i]);
-        }
+        long time = end.getTime() - start.getTime();
+        System.out.println(sums[p]);
+        
+        System.out.println("time in milis : "+time);
     }
     
     private static void fillPowers() {
-        for(int i =0; i<10001;i++) {
-            for(int j=0;j<5000;j++) {
-                powers[i][j] = 0;
-            }
-        }
+        int sum = 0;
         powers[0][0] = 1;
         int d = 0;
-        for(int i =1; i<10001;i++) {
-            for(int j=0;j<5000;j++) {
+        int l =0;
+        for(int i =1; i<p+1;i++) {
+            l = i/3+1;
+            sum = 0;
+            for(int j=0;j<Math.min(l, pd);j++) {
                 d = d + powers[i-1][j]*2;
-                powers[i][j]=d%10;
+                powers[i][j]=(short)(d%10);
+                sum = sum +(d%10);
                 d=d/10;
             }
+            sums[i] =sum;
         }
     }
     
     private static void fillSums() {
         int sum = 0;
-        for(int i =0; i<10001;i++) {
+        for(int i =0; i<p+1;i++) {
             sum = 0;
-            for(int j=0;j<5000;j++) {
+            for(int j=0;j<pd;j++) {
                 sum = sum +powers[i][j];
             }
             sums[i] =sum;

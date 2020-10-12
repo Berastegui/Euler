@@ -9,6 +9,10 @@ public class FibonacciPair
     public static void main(String[] args)
     {
         System.out.println(sumPairFibonacci(100));
+        
+        System.out.println(fibonacci(50));
+
+        System.out.println(fibonacci(51));
 
     }
     
